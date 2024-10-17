@@ -13,4 +13,5 @@ class MailLog < ApplicationRecord
   def slug_candidates
 		[SecureRandom.uuid]
 	end
+  
 end
