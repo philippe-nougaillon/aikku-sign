@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
 
     mail(to: @user.email, 
         bcc: "philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com",
-        subject: "[Émargements] Bienvenue !'")
+        subject: "[Aikku SIGN] Bienvenue !'")
 
   end
 end
