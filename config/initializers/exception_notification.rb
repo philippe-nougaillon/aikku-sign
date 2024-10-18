@@ -20,7 +20,7 @@ ExceptionNotification.configure do |config|
 
   # Email notifier sends notifications by email.
   config.add_notifier :email, {
-    email_prefix: '[AikkuSign Error] ',
+    email_prefix: '[Aikku Sign Error] ',
     sender_address: "Aikku Sign Notifier <emargements@philnoug.com>",
     exception_recipients: %w{philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com}
   }
