@@ -14,9 +14,9 @@
       <% end %>
     </p>
 
-    <p class="italic text-sm">
+    <p class="italic text-sm mt-2">
       <% if assemblee.début > DateTime.now %>
-        <span class="text-warning">
+        <span class="text-success">
           (débute dans <%= time_ago_in_words assemblee.début %>)
         </span>
       <% elsif ((assemblee.début + assemblee.durée.to_f.hours) - Time.current).positive? %>
