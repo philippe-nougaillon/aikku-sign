@@ -80,4 +80,5 @@ class User < ApplicationRecord
   def slug_candidates
     [SecureRandom.uuid]
   end
+  
 end

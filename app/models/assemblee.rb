@@ -19,6 +19,7 @@ class Assemblee < ApplicationRecord
 
   scope :ordered, -> { order(updated_at: :desc) }
 
+  #
   # WORKFLOW
   # 
     
@@ -58,14 +59,6 @@ class Assemblee < ApplicationRecord
     (self.début < DateTime.now + 10.minutes) && (self.fin > DateTime.now)
   end
 
-  def related_users
-    ids = []
-    self.tags.each do |tag|
-      ids << self.organisation.users.tagged_with(tag).pluck(:id)
-    end
-    return ids.flatten.uniq
-  end
-
   def qrcode(url)
     RQRCode::QRCode.new(url).as_svg(
                 color: "000",
@@ -91,11 +84,23 @@ class Assemblee < ApplicationRecord
     "#{self.nom} [#{self.horaires_medium}]"
   end
 
+  #
+  # Some facilities
+  #
+
   def users_not_signed
-    # Liste des utilisateurs des groupes de la sessino qui n'ont pas signé
+    # Liste des utilisateurs des groupes de la session qui n'ont pas signé
     User.where(id: self.related_users)
         .where.not(id: self.presences.pluck(:user_id))
         .ordered
+  end
+
+  def related_users
+    ids = []
+    self.tags.each do |tag|
+      ids << self.organisation.users.tagged_with(tag).pluck(:id)
+    end
+    return ids.flatten.uniq
   end
 
   private
@@ -107,4 +112,5 @@ class Assemblee < ApplicationRecord
   def slug_candidates
 		[SecureRandom.uuid]
 	end
+  
 end

@@ -13,19 +13,19 @@ class Organisation < ApplicationRecord
 
   validates :nom, presence: true
 
-  def step
-    if self.nom == 'Mon_organisation'
-      0
-    elsif !(self.users.count > 1)
-      1
-    elsif !self.assemblees.any?
-      2
-    elsif self.assemblees.count == 1 && self.mail_logs.count.zero?
-      3
-    else
-      4
-    end
-  end
+  # def step
+  #   if self.nom == 'Mon_organisation'
+  #     0
+  #   elsif !(self.users.count > 1)
+  #     1
+  #   elsif !self.assemblees.any?
+  #     2
+  #   elsif self.assemblees.count == 1 && self.mail_logs.count.zero?
+  #     3
+  #   else
+  #     4
+  #   end
+  # end
 
   def tags
     assemblees_tags_ids = self.assemblees.tag_counts_on(:tags).pluck(:id)
@@ -34,7 +34,9 @@ class Organisation < ApplicationRecord
   end
 
   private
+
   def slug_candidates
     [SecureRandom.uuid]
   end
+  
 end

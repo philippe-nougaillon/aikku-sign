@@ -7,13 +7,11 @@
         <% if params[:assemblee_id].present? %>
           <%= image_tag(Assemblee.find_by(slug: params[:assemblee_id]).organisation.logo, width: 80, alt:'', class:"mr-2") %>
         <% else %>
-          <span class="material-symbols-outlined !text-5xl text-secondary px-4">
-            person_raised_hand
-          </span>
+          <%= image_tag('Aikku_logo.png', width: 80, alt:'', class:"mr-2") %>
         <% end %>
       <% end %>
       <span class="hidden sm:block font-bold pl-2 text-primary text-2xl hover:underline">
-        Émargements
+        Aikku SIGN
         <%= user_signed_in? ? ">> #{current_user.organisation.nom}" : '' %>
       </span>
     <% end %>
