@@ -1,6 +1,10 @@
 <h1 class="text-4xl font-bold mb-4">
-  <%= page_title!("Audit des modifications") %>
+  <%= page_title!("Audit Trail") %>
 </h1>
+
+<p class="mb-8">
+  Historique des modifications
+</p>
 
 <%= form_tag request.path, method: :get do %>
   <div class="flex flex-wrap items-end gap-4">
