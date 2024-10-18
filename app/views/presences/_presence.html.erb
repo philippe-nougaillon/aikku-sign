@@ -4,10 +4,12 @@
       <i>Il y a <%= time_ago_in_words presence.heure %></i>
     </small>
 
-    <p class="text-2xl text-primary"><%= presence.user.nom %></p>
+    <p class="text-2xl text-primary">
+      <%= link_to presence.user.nom, presences_path(user_id: presence.user.id) %>
+    </p>
 
     <p class="text-xl">
-      <%= presence.assemblee.nom.humanize %>
+      <%= link_to presence.assemblee.nom.humanize, presences_path(assemblee_id: presence.assemblee.id) %>
     </p>
 
     <p class="text-secondary">
