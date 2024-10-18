@@ -32,8 +32,7 @@
           <%= assemblee.workflow_state.humanize %>
         </span>
         |
-        Émargements :
-        <%= link_to assemblee.presences.count, presences_path(assemblee_id: assemblee.id), class: 'text-primary hover:underline' %>
+        <%= link_to "#{assemblee.presences.count} Émargements", presences_path(assemblee_id: assemblee.id), class: 'text-primary hover:underline' %>
         /
         <%= link_to "#{assemblee.related_users.count} participant(s)", users_path(assemblee_id: assemblee.id), class: 'text-primary hover:underline' %>
       </p>
