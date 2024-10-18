@@ -97,7 +97,7 @@ class AssembleesController < ApplicationController
           Events.instance.publish('assemblee.created', payload: {assemblee_id: @assemblee.id})
         end
         format.html do 
-          redirect_to current_user.organisation.step < 4 ? admin_index_path : assemblees_url
+          redirect_to assemblees_url
           flash[:notice] = "Session créée avec succès."
         end
         format.json { render :show, status: :created, location: @assemblee }
