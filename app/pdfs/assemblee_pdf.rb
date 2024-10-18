@@ -33,7 +33,7 @@ class AssembleePdf
 
       unless assemblee.organisation.premium?
         move_down @margin_down * 25
-        image "#{@image_path}/logo_signature.png", :width => 25, position: :center
+        image "#{@image_path}/Aikku_logo", :width => 25, position: :center
         move_down @margin_down
         text "<u><a href='https://emargements.philnoug.com/'>Convocation réalisée gratuitement</a></u>", align: :center, inline_format: true
       end
