@@ -102,6 +102,6 @@ Rails.application.configure do
     :api_host => 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
   }
 
-  config.action_mailer.default_url_options = { host: 'emargements.philnoug.com', protocol: 'https' }
-  config.action_mailer.asset_host = 'https://emargements.philnoug.com/'
+  config.action_mailer.default_url_options = { host: 'sign.aikku.eu', protocol: 'https' }
+  config.action_mailer.asset_host = 'https://sign.aikku.eu/'
 end
