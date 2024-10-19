@@ -1,17 +1,20 @@
 <h1 class="text-4xl font-bold text-primary my-4 ">
-  <%= page_title!(@user.nom_prénom) %>
   <% if @user.admin %>
     <span class="material-symbols-outlined text-secondary">
       local_police
     </span>
   <% end %>
+  <%= page_title!(@user.nom_prénom) %>
 </h1>
 
-<% @user.tags.each do |tag| %>
-  <%= link_to(tag.name.humanize, users_path(tag:tag.name), class: 'badge badge-ghost') %>
-<% end %>
+<p class="mt-4">
+  <strong>Groupes :</strong>
+  <% @user.tags.each do |tag| %>
+    <span class="badge"><%= tag.name.humanize %></span>
+  <% end %>
+</p>
 
-<p class="mt-8">
+<p class="mt-4">
   <strong>Email :</strong>
   <%= @user.email %>
 </p>
@@ -41,9 +44,10 @@
     Nbr connexions : <%= @user.sign_in_count %> 
   </p>
 <% end %>
-<div class="flex flex-wrap gap-4 mt-8">
-  <%= link_to "Modifier", edit_user_path(@user), class:'btn btn-primary btn-outline btn-sm' %>
-  <%= button_to @user, method: :delete, data:{turbo_confirm: "Êtes-vous certain(e) de vouloir supprimer ce participant ?"}, class:'btn btn-error btn-outline btn-sm', disabled: @user.presences.any? do %>
+
+<div class="flex flex-wrap gap-2 mt-8">
+  <%= link_to "Modifier", edit_user_path(@user), class:'btn btn-primary btn-outline hover:!text-white btn-sm' %>
+  <%= button_to @user, method: :delete, data:{turbo_confirm: "Êtes-vous certain(e) de vouloir supprimer ce participant ?"}, class:'btn btn-error btn-outline hover:!text-white btn-sm', disabled: @user.presences.any? do %>
     <span class="material-symbols-outlined">
       delete
     </span>

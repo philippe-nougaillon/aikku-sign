@@ -12,12 +12,9 @@
   <br>
   <span class="text-secondary"><%= user.email %></span>
 
-  <p class="mt-4">
-    Groupes :
-    <% user.tags.each do |tag| %>
-      <span class="badge"><%= tag.name.humanize %></span>
-    <% end %>
-  </p>
+  <% user.tags.each do |tag| %>
+    <span class="badge"><%= tag.name.humanize %></span>
+  <% end %>
 
   <p class="mt-4">
     <%= link_to_if user.presences.count.positive?, pluralize(user.presences.count, 'émargement', plural: 'émargements'), presences_path(user_id: user.id), class: 'text-primary hover:underline', title: "Voir tous les émargements de ce participant." %>

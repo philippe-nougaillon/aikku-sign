@@ -38,14 +38,13 @@
       </p>
 
       <div class="flex flex-wrap gap-2 mt-6">
-        <%= link_to "Modifier", edit_assemblee_path(assemblee), class:'btn btn-primary btn-outline btn-sm' %>
-        <%= link_to "Copier", new_assemblee_path(assemblee_id: assemblee), class:'btn btn-success btn-outline btn-sm' %>
-
-        <%= link_to "Générer les convocations", assemblee_path(assemblee, format: :pdf), class:'btn btn-secondary btn-outline btn-sm', target: "_blank", title: "Générer les convocations (PDF)" %>
+        <%= link_to "Dupliquer", new_assemblee_path(assemblee_id: assemblee), class:'btn btn-success btn-outline hover:!text-white btn-sm' %>
+        <%= link_to "Générer Convocations", assemblee_path(assemblee, format: :pdf), class:'btn btn-secondary btn-outline hover:!text-white btn-sm', target: "_blank", title: "Générer les convocations (PDF)" %>
+        <%= link_to "Modifier", edit_assemblee_path(assemblee), class:'btn btn-primary btn-outline hover:!text-white btn-sm' %>
         <% if assemblee.fin > DateTime.now %>
-          <%= link_to "Envoyer le lien au gestionnaire", envoyer_lien_gestionnaire_assemblee_path(assemblee), class: 'btn btn-warning btn-outline btn-sm', title: "Envoyer au gestionnaire un mail contenant le lien public vers la feuille d'émargement des présences" %>
+          <%= link_to "Envoyer le lien au gestionnaire", envoyer_lien_gestionnaire_assemblee_path(assemblee), class: 'btn btn-warning btn-outline hover:!text-white btn-sm', title: "Envoyer au gestionnaire un mail contenant le lien public vers la feuille d'émargement des présences" %>
         <% end %>
-        <%= button_to assemblee, method: :delete, data: {turbo_confirm: "Êtes-vous certain(e) de vouloir supprimer cette session ? Cela supprimera aussi les signatures liées" }, class: 'btn btn-error btn-outline btn-sm' do %>
+        <%= button_to assemblee, method: :delete, data: {turbo_confirm: "Êtes-vous certain(e) de vouloir supprimer cette session ? Cela supprimera aussi les signatures liées" }, class: 'btn btn-error btn-outline hover:!text-white btn-sm' do %>
           <span class="material-symbols-outlined">
             delete
           </span>
