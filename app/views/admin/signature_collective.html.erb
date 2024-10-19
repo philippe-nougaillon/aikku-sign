@@ -5,8 +5,8 @@
 <p class="font-bold">
   <%= @presence.assemblee.horaires_long %>
   <% if @presence.assemblee.début > DateTime.now %>
-    <span class="text-warning">
-      (début de session dans <%= time_ago_in_words @presence.assemblee.début %>)
+    <span class="text-success">
+      (débute dans <%= time_ago_in_words @presence.assemblee.début %>)
     </span>
   <% elsif @presence.assemblee.in_progress? %>
     <span class="text-error">
