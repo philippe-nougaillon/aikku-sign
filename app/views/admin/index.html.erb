@@ -1,12 +1,12 @@
 <div class="overflow-x-auto">
   <div class="flex justify-center mt-4">
     <div class="flex flex-col items-center">
-      <h1 class="text-3xl font-bold text-secondary mb-8">
+      <h1 class="text-3xl font-bold text-secondary mb-4">
         Chronologie des prochaines sessions
       </h1>
 
       <% if @assemblees.any? %>
-        <ul class="timeline mb-8">
+        <ul class="timeline mb-4">
           <% @assemblees.each_with_index do |assemblee, index| %>
             <% started = (assemblee.début < DateTime.now) %>
             <% finished = (assemblee.fin < DateTime.now) %>
@@ -34,17 +34,17 @@
   </div>
 </div>
 
-<div class="my-4">
-  <div class="flex justify-center mb-4">
+<div class="mt-2">
+  <div class="flex justify-center">
     <%= link_to "ÉMARGEMENTS", presences_path, class: 'btn btn-outline btn-primary btn-lg hover:shadow-xl hover:!text-white w-1/2' %>
   </div>
-  <div class="flex justify-center mb-4">
+  <div class="flex justify-center my-4">
     <%= link_to "SESSIONS", assemblees_path, class: 'btn btn-outline btn-primary btn-lg hover:shadow-xl hover:!text-white w-1/2' %>
   </div>
-  <div class="flex justify-center mb-6">
+  <div class="flex justify-center">
     <%= link_to "PARTICIPANTS", users_path, class: 'btn btn-outline btn-primary btn-lg hover:shadow-xl hover:!text-white w-1/2' %>
   </div>
-  <div class="flex justify-center gap-1">
+  <div class="flex justify-center gap-2 mt-4">
     <%= link_to "Organisation", edit_organisation_path(current_user.organisation), title: "Voir les paramètres de mon Organisation", class: 'btn btn-outline btn-secondary hover:!text-white' %>
     <%= link_to "Mail Logs", mail_logs_path, title: "Historique des mails envoyés", class: 'btn btn-outline btn-secondary hover:!text-white' %>
     <%= link_to "Audit Trail", admin_audits_path, title: "Audit des modifications", class: 'btn btn-outline btn-secondary hover:!text-white' %>
