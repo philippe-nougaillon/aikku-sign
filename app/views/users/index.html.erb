@@ -4,13 +4,13 @@
   </h1>
   
   <div>
-    <%= link_to "Ajouter Participant", admin_create_new_participant_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
+    <%= link_to "Nouveau Participant", admin_create_new_participant_path, class:'btn btn-success btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
     <% if policy(:admin).import? %>
       <%= link_to "Importer", admin_import_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
     <% else %>
       <%= link_to "Importer", admin_premium_path(alert: true), class:'btn btn-primary btn-outline btn-lg disabled-element ' %>
     <% end %>
-    <%= link_to "+Administrateur", admin_create_new_admin_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
+    <%= link_to "Ajouter un Admin.", admin_create_new_admin_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
   </div>
 </div>
 
@@ -21,12 +21,10 @@
       <%= text_field_tag :search, params[:search], include_blank:true, onchange:'this.form.submit()', class: 'input input-bordered input-sm w-full', placeholder: 'Nom/Prénom/Email' %>
     </div>
 
-    <div class="max-w-72 w-full">
+    <div class="max-w-96 w-full">
       <%= label_tag :assemblee_id, "Session" %>
-      <%= select_tag :assemblee_id, options_from_collection_for_select(@assemblees, :id, :nom, params[:assemblee_id]), include_blank: true, onchange: 'this.form.submit()' %>
+      <%= select_tag :assemblee_id, options_from_collection_for_select(@assemblees, :id, :nom_long, params[:assemblee_id]), include_blank: true, onchange: 'this.form.submit()' %>
     </div>
-    <%# label_tag :admin, "Admin" %>
-    <%# check_box_tag :admin, params[:admin], params[:admin], class: 'checkbox', onchange: 'this.form.submit()' %>
     <div>
       <%= render TagCloudComponent.new(tags: @tags) %>
     </div>
@@ -38,7 +36,6 @@
 <div id="users">
   <%= render @users %>
 </div>
-
 
 <p class="mt-8">Affichage de <%= pluralize(@users.count, 'participant', plural: 'participants') %> sur <%= current_user.organisation.users.count %> au total</p>
 
