@@ -45,9 +45,9 @@
     <%= link_to "PARTICIPANTS", users_path, class: 'btn btn-outline btn-primary btn-lg hover:shadow-xl hover:!text-white w-1/2' %>
   </div>
   <div class="flex justify-center gap-2 mt-4">
-    <%= link_to "Organisation", edit_organisation_path(current_user.organisation), title: "Voir les paramètres de mon Organisation", class: 'btn btn-outline btn-secondary hover:!text-white' %>
+    <%= link_to "Détection d'anomalies", admin_fake_signatures_detector_path, title: "Détections de fausses signatures", class: 'btn btn-outline btn-secondary hover:!text-white' %>
     <%= link_to "Mail Logs", mail_logs_path, title: "Historique des mails envoyés", class: 'btn btn-outline btn-secondary hover:!text-white' %>
     <%= link_to "Audit Trail", admin_audits_path, title: "Audit des modifications", class: 'btn btn-outline btn-secondary hover:!text-white' %>
-    <%= link_to "Détections d'anomalies", admin_fake_signatures_detector_path, title: "Détections de fausses signatures", class: 'btn btn-outline btn-secondary hover:!text-white' %>
+    <%= link_to "Mon Organisation", edit_organisation_path(current_user.organisation), title: "Voir les paramètres de mon Organisation", class: 'btn btn-outline btn-secondary hover:!text-white' %>
   </div>
 </div>
