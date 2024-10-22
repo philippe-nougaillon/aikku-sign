@@ -118,3 +118,5 @@ gem "workflow-activerecord"
 
 
 gem "pagy", "~> 9.1"
+
+gem "recaptcha", "~> 5.17"

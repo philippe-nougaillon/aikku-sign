@@ -58,4 +58,12 @@ class AdminPolicy
     true
   end
 
+  def contact?
+    true
+  end
+
+  def contact_submit?
+    contact?
+  end
+
 end

@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[mentions_legales signature_collective signature_collective_do signature_individuelle signature_individuelle_do]
+  skip_before_action :authenticate_user!, only: %i[contact contact_submit mentions_legales signature_collective signature_collective_do signature_individuelle signature_individuelle_do]
   before_action :is_user_authorized, except: %i[signature_collective signature_collective_do signature_individuelle signature_individuelle_do]
   before_action :set_tags, only: %i[import create_new_participant]
 
@@ -185,6 +185,18 @@ class AdminController < ApplicationController
 
   def mentions_legales; end
 
+  def contact; end
+
+  def contact_submit
+    if verify_recaptcha
+      message = Message.create(email: params[:email], objet: params[:objet], contenu: params[:contenu])
+      ContactMailer.submitted(message).deliver_now
+      redirect_to root_path, notice: 'Votre message a bien été envoyé.'
+    else
+      flash[:alert] = 'Problème avec reCAPTCHA, merci de réessayer'
+      render 'contact'
+    end
+  end
 
   private
 

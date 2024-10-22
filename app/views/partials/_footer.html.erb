@@ -28,11 +28,15 @@
   </span>
   <div class="md:place-self-center md:justify-self-end">
     <div class="grid grid-flow-col gap-4">
-      <%= link_to "https://www.aikku.eu/contact" do %>
-        <i class="fa-solid fa-envelope fa-2xl"></i>
+      <%= link_to admin_contact_path do %>
+        <span class="material-symbols-outlined">
+          mail
+        </span>
       <% end %>
       <%= link_to "https://www.linkedin.com/in/aikku-sas", target: "_blank" do %>
-        <i class="fa-brands fa-linkedin fa-2xl"></i>
+        <span class="material-symbols-outlined">
+          public
+        </span>
       <% end %>
     </div>
   </div>
