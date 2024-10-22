@@ -5,7 +5,11 @@
         <%= image_tag(current_user.organisation.logo, width: 80, alt:'', class:"mr-2") %>
       <% else %>
         <% if params[:assemblee_id].present? %>
-          <%= image_tag(Assemblee.find_by(slug: params[:assemblee_id]).organisation.logo, width: 80, alt:'', class:"mr-2") %>
+          <% if organisation = Assemblee.find_by(slug: params[:assemblee_id]).organisation %>
+            <% if organisation.logo.attached? %>
+              <%= image_tag(organisation.logo, width: 80, alt:'', class:"mr-2") %>
+            <% end %>
+          <% end %>
         <% else %>
           <%= image_tag('Aikku_logo.png', width: 80, alt:'', class:"mr-2") %>
         <% end %>
