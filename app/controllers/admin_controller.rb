@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[signature_collective signature_collective_do signature_individuelle signature_individuelle_do]
+  skip_before_action :authenticate_user!, only: %i[mentions_legales signature_collective signature_collective_do signature_individuelle signature_individuelle_do]
   before_action :is_user_authorized, except: %i[signature_collective signature_collective_do signature_individuelle signature_individuelle_do]
   before_action :set_tags, only: %i[import create_new_participant]
 
@@ -182,6 +182,9 @@ class AdminController < ApplicationController
       format.html { redirect_to admin_fake_signatures_detector_url, notice: "Détection lancée" }
     end
   end
+
+  def mentions_legales; end
+
 
   private
 
