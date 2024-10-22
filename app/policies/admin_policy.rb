@@ -54,4 +54,8 @@ class AdminPolicy
     fake_signatures_detector?
   end
 
+  def mentions_legales?
+    true
+  end
+
 end

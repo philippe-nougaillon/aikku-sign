@@ -27,6 +27,9 @@
     <main class="py-4 px-4 md:px-12">
       <%= render "partials/notification" %>
       <%= yield %>
-    </main>
+    </main>    
+    <% unless user_signed_in? %>
+      <%= render partial: "partials/footer" %>
+    <% end %>
   </body>
 </html>

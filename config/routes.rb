@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     get :fake_signatures_detector
     get :fake_signature_detector
     get :launch_fake_signature_detector
+    get :mentions_legales
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
