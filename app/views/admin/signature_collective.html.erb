@@ -1,94 +1,96 @@
-<h1 class="text-2xl sm:text-4xl font-bold text-primary mt-6">
-  <%= page_title!(@presence.assemblee.nom.humanize) %>
-</h1>
+<div class="min-h-screen">
+  <h1 class="text-2xl sm:text-4xl font-bold text-primary mt-6">
+    <%= page_title!(@presence.assemblee.nom.humanize) %>
+  </h1>
 
-<p class="font-bold">
-  <%= @presence.assemblee.horaires_long %>
-  <% if @presence.assemblee.début > DateTime.now %>
-    <span class="text-success">
-      (débute dans <%= time_ago_in_words @presence.assemblee.début %>)
-    </span>
-  <% elsif @presence.assemblee.in_progress? %>
-    <span class="text-error">
-      (fin de session dans <%= time_ago_in_words @presence.assemblee.fin %>)
-    </span>
-  <% end %>
-</p>
+  <p class="font-bold">
+    <%= @presence.assemblee.horaires_long %>
+    <% if @presence.assemblee.début > DateTime.now %>
+      <span class="text-success">
+        (débute dans <%= time_ago_in_words @presence.assemblee.début %>)
+      </span>
+    <% elsif @presence.assemblee.in_progress? %>
+      <span class="text-error">
+        (fin de session dans <%= time_ago_in_words @presence.assemblee.fin %>)
+      </span>
+    <% end %>
+  </p>
 
-<p class="my-4">
-  Groupes : <% @presence.assemblee.tags.each do |tag| %>
-    <span class="badge"><%= tag.name.humanize %></span>
-  <% end %>
-</p>
+  <p class="my-4">
+    Groupes : <% @presence.assemblee.tags.each do |tag| %>
+      <span class="badge"><%= tag.name.humanize %></span>
+    <% end %>
+  </p>
 
-<%= form_tag({action: "signature_collective_do", method: :post}) do %>
-  <% if @presence.assemblee.in_progress? %>
-    <%= hidden_field_tag :assemblee_id, params[:assemblee_id] %>
-    <div class="flex flex-wrap gap-8 sm:gap-24">
-      <% if @users_not_signed.any? %>
-        <div class="flex-1 flex flex-col">
-          <% if @presence.errors.any? %>
-            <div style="color: red">
-              <%= @presence.errors.full_messages %>
+  <%= form_tag({action: "signature_collective_do", method: :post}) do %>
+    <% if @presence.assemblee.in_progress? %>
+      <%= hidden_field_tag :assemblee_id, params[:assemblee_id] %>
+      <div class="flex flex-wrap gap-8 sm:gap-24">
+        <% if @users_not_signed.any? %>
+          <div class="flex-1 flex flex-col">
+            <% if @presence.errors.any? %>
+              <div style="color: red">
+                <%= @presence.errors.full_messages %>
+              </div>
+            <% end %>
+            <div class="mb-4 w-full sm:max-w-96">
+              <%= label_tag :user_id, "Participant (Choisir votre nom dans la liste)", style: "display: block" %>
+              <%= select_tag :user_id, options_from_collection_for_select(@users_not_signed, :slug, :nom_prénom), include_blank: true, required:true, class: 'input input-lg' %>
             </div>
-          <% end %>
-          <div class="mb-4 w-full sm:max-w-96">
-            <%= label_tag :user_id, "Participant (Choisir votre nom dans la liste)", style: "display: block" %>
-            <%= select_tag :user_id, options_from_collection_for_select(@users_not_signed, :slug, :nom_prénom), include_blank: true, required:true, class: 'input input-lg' %>
-          </div>
 
-          <div>
             <div>
-              <%= label_tag :signature, "Signature (Merci de signer dans le cadre ci-dessous)", style: "display: block;"  %>
-              <%= text_field_tag :signature, "", style:'display: none' %>
-            </div>
+              <div>
+                <%= label_tag :signature, "Signature (Merci de signer dans le cadre ci-dessous)", style: "display: block;"  %>
+                <%= text_field_tag :signature, "", style:'display: none' %>
+              </div>
 
-            <div id="signature-container" class="sm:pr-8">
-              <% if request.variant.include?(:phone) %>
-                <canvas id="signature-pad" class="signature-pad bg-slate-100 shadow" width=300 height=150></canvas>
-              <% else %>
-                <canvas id="signature-pad" class="signature-pad bg-slate-100 shadow-xl" width=600 height=300></canvas>
-              <% end %>
+              <div id="signature-container" class="sm:pr-8">
+                <% if request.variant.include?(:phone) %>
+                  <canvas id="signature-pad" class="signature-pad bg-slate-100 shadow" width=300 height=150></canvas>
+                <% else %>
+                  <canvas id="signature-pad" class="signature-pad bg-slate-100 shadow-xl" width=600 height=300></canvas>
+                <% end %>
 
-              <div class="flex flex-wrap gap-4 mt-8">
-                <button id="save" class="btn btn-primary btn-outline hover:shadow-xl hover:!text-white btn-lg">Enregistrer cet émargement</button>
-                <div id="clear" class="btn btn-lg btn-outline text-secondary" title="Effacer la signature">
-                  <span class="material-symbols-outlined">
-                    ink_eraser
-                  </span>
+                <div class="flex flex-wrap gap-4 mt-8">
+                  <button id="save" class="btn btn-primary btn-outline hover:shadow-xl hover:!text-white btn-lg">Enregistrer cet émargement</button>
+                  <div id="clear" class="btn btn-lg btn-outline text-secondary" title="Effacer la signature">
+                    <span class="material-symbols-outlined">
+                      ink_eraser
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      <% else %>
-        <h1 class="text-2xl text-success">
-          Emargement complet !
-          <br>
-          Tous les participants à cette session ont déjà émargé
-          <p class="my-4">
-            <%= link_to "Voir les émargements", presences_path(assemblee_id: @presence.assemblee.id), class: 'btn btn-outline text-primary hover:underline'%>
-          </p>
-        </h1>
-
-      <% end%>
-
-      <div class="flex-1">
-        <% if @presence.assemblee.presences.any? %>
-          <h2 class="text-2xl text-secondary mb-4">Derniers émargements enregistrés</h2>
-          <% @presence.assemblee.presences.order(created_at: :desc).each do |p| %>
-            <i><%= p.user.nom_prénom %> a signé il y a <%= time_ago_in_words p.created_at%></i>
+        <% else %>
+          <h1 class="text-2xl text-success">
+            Emargement complet !
             <br>
+            Tous les participants à cette session ont déjà émargé
+            <p class="my-4">
+              <%= link_to "Voir les émargements", presences_path(assemblee_id: @presence.assemblee.id), class: 'btn btn-outline text-primary hover:underline'%>
+            </p>
+          </h1>
+
+        <% end%>
+
+        <div class="flex-1">
+          <% if @presence.assemblee.presences.any? %>
+            <h2 class="text-2xl text-secondary mb-4">Derniers émargements enregistrés</h2>
+            <% @presence.assemblee.presences.order(created_at: :desc).each do |p| %>
+              <i><%= p.user.nom_prénom %> a signé il y a <%= time_ago_in_words p.created_at%></i>
+              <br>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
-  <% elsif @presence.assemblee.début > DateTime.now %>
-    <p>La session n'a pas encore commencé. Vous pourrez émarger à partir du <%= l @presence.assemblee.début.to_date %> à <%= (@presence.assemblee.début - 10.minutes).strftime("%H:%M") %></p>
-  <% else %>
-    <p>Cette session est maintenant terminée.</p>
+    <% elsif @presence.assemblee.début > DateTime.now %>
+      <p>La session n'a pas encore commencé. Vous pourrez émarger à partir du <%= l @presence.assemblee.début.to_date %> à <%= (@presence.assemblee.début - 10.minutes).strftime("%H:%M") %></p>
+    <% else %>
+      <p>Cette session est maintenant terminée.</p>
+    <% end %>
   <% end %>
-<% end %>
+</div>
 
 <script>
   var signaturePad = new SignaturePad(document.getElementById('signature-pad'));
