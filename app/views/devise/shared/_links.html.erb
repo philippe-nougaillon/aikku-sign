@@ -22,7 +22,7 @@
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
-  <div class="divider">OU</div>
+  <div class="divider !mt-0">OU</div>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <%= form_for "Login",
       url: omniauth_authorize_path(resource_name, provider),
