@@ -3,7 +3,10 @@
     <%= page_title!("Historique des détections") %>
   </h1>
   
-  <%= link_to "Lancer détection", admin_launch_fake_signature_detector_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
+  <div>
+    <%= link_to "Création dataset", admin_create_dataset_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
+    <%= link_to "Lancer détection", admin_launch_fake_signature_detector_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
+  </div>
 </div>
 
 <div class="overflow-x-auto">

@@ -198,6 +198,13 @@ class AdminController < ApplicationController
     end
   end
 
+  def create_dataset
+    CreateGoogleCloudStorageInputFile.call(organisation_id: current_user.organisation_id)
+    respond_to do |format|
+      format.html { redirect_to admin_fake_signatures_detector_url, notice: "Dataset créé" }
+    end
+  end
+
   private
 
   def is_user_authorized

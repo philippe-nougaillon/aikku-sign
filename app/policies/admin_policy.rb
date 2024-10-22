@@ -66,4 +66,8 @@ class AdminPolicy
     contact?
   end
 
+  def create_dataset?
+    fake_signatures_detector?
+  end
+
 end

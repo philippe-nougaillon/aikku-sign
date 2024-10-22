@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     get :mentions_legales
     get :contact
     post :contact, to: 'contact_submit'
+    get :create_dataset
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
