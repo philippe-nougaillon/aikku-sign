@@ -1,0 +1,32 @@
+<%= form_tag do %>
+  <section class="mx-auto px-4 md:w-1/2 ">
+    <div class="card shadow-lg bg-white mt-4">
+      <div class="card-body px-4 lg:px-8 pt-4">
+        <h1 class="font-black text-5xl lg:text-6xl text-center text-secondary mb-8 italic">
+          <%= page_title!("Contact") %>
+        </h1>
+        <p class="pb-4">
+          <b>Vous avez une question, une remarque ou un projet à nous soumettre ?</b>
+          <br><br>
+          Remplissez ce formulaire et nous vous recontacterons dès que possible.
+          <br>
+          Vous pouvez aussi nous contacter directement sur contact @ aikku .eu
+        </p>
+        <div>
+          <%= label_tag :objet, "Objet" %>
+          <%= text_field_tag :objet, params[:objet], class:"input input-sm input-bordered w-full", required: true %>
+        </div>
+        <div>
+          <%= label_tag :email, "Email" %>
+          <%= email_field_tag :email, params[:email], class:"input input-sm input-bordered w-full", required: true %>
+        </div>
+        <div>
+          <%= label_tag :contenu, "Message" %>
+          <%= text_area_tag :contenu, params[:contenu], class:"textarea textarea-bordered w-full", rows: 5, required: true %>
+        </div>
+        <%= recaptcha_tags unless %w[localhost 127.0.0.1].include?(request.host) %>
+        <%= submit_tag "Envoyer", class:"btn btn-primary btn-outline", 'data-turbo': false %>
+      </div>
+    </div>
+  </section>
+  <% end %>
