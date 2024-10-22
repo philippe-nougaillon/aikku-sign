@@ -22,9 +22,9 @@
     <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
   </head>
 
-  <body>
+  <body class="min-h-screen bg-slate-50">
     <%= render "partials/navbar" %>
-    <main class="py-4 px-4 md:px-12 bg-slate-50 min-h-screen">
+    <main class="py-4 px-4 md:px-12">
       <%= render "partials/notification" %>
       <%= yield %>
     </main>    
