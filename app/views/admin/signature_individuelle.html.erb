@@ -1,60 +1,63 @@
-<h2 class="text-xl sm:text-2xl">Émargement session du <%= l @presence.assemblee.début.to_date, format: :short %></h2>
-<h1 class="text-2xl sm:text-4xl font-bold text-primary mb-6"><%= page_title!(@presence.assemblee.nom.humanize) %></h1>
+<div class="min-h-screen">
 
-<%= form_tag({action: "signature_individuelle_do", method: :post}) do %>
-  <% if @presence.assemblee.in_progress? %>
-    <%= hidden_field_tag :assemblee_id, params[:assemblee_id] %>
-    <div class="flex flex-wrap gap-8 sm:gap-24">
-      <div class="flex-1 flex flex-col">
-        <p class="text-xl font-bold mb-4"><%= @presence.user.nom_prénom %></p>
-        <%= hidden_field_tag :user_id, params[:user_id] %>
+  <h2 class="text-xl sm:text-2xl">Émargement session du <%= l @presence.assemblee.début.to_date, format: :short %></h2>
+  <h1 class="text-2xl sm:text-4xl font-bold text-primary mb-6"><%= page_title!(@presence.assemblee.nom.humanize) %></h1>
 
-        <% if @presence.assemblee.users_not_signed.include?(@presence.user) %>
-          <div>
+  <%= form_tag({action: "signature_individuelle_do", method: :post}) do %>
+    <% if @presence.assemblee.in_progress? %>
+      <%= hidden_field_tag :assemblee_id, params[:assemblee_id] %>
+      <div class="flex flex-wrap gap-8 sm:gap-24">
+        <div class="flex-1 flex flex-col">
+          <p class="text-xl font-bold mb-4"><%= @presence.user.nom_prénom %></p>
+          <%= hidden_field_tag :user_id, params[:user_id] %>
+
+          <% if @presence.assemblee.users_not_signed.include?(@presence.user) %>
             <div>
-              <%= label_tag :signature, "Signature (Merci de signer dans le cadre ci-dessous)", style: "display: block" %>
-              <%= text_field_tag :signature, "", style:'display: none' %>
-            </div>
+              <div>
+                <%= label_tag :signature, "Signature (Merci de signer dans le cadre ci-dessous)", style: "display: block" %>
+                <%= text_field_tag :signature, "", style:'display: none' %>
+              </div>
 
-            <div id="signature-container" class="sm:pr-8">
-              <% if request.variant.include?(:phone) %>
-                <canvas id="signature-pad" class="signature-pad shadow" width=300 height=150></canvas>
-              <% else %>
-                <canvas id="signature-pad" class="signature-pad shadow-xl" width=600 height=300></canvas>
-              <% end %>
+              <div id="signature-container" class="sm:pr-8">
+                <% if request.variant.include?(:phone) %>
+                  <canvas id="signature-pad" class="signature-pad shadow" width=300 height=150></canvas>
+                <% else %>
+                  <canvas id="signature-pad" class="signature-pad shadow-xl" width=600 height=300></canvas>
+                <% end %>
 
-              <% if ((@presence.assemblee.début + @presence.assemblee.durée.to_f.hours) - Time.current).positive? %>
-                <p class="mt-2">
-                  Temps restant :
-                  <%= time_ago_in_words @presence.assemblee.fin %>
-                </p>
-              <% end %>
+                <% if ((@presence.assemblee.début + @presence.assemblee.durée.to_f.hours) - Time.current).positive? %>
+                  <p class="mt-2">
+                    Temps restant :
+                    <%= time_ago_in_words @presence.assemblee.fin %>
+                  </p>
+                <% end %>
 
-              <div class="flex gap-4 mt-8">
-                <button id="save" class="btn btn-primary btn-outline hover:shadow-xl hover:!text-white btn-lg">Enregistrer</button>
-                <div id="clear" class="btn btn-lg btn-outline">
-                  <span class="material-symbols-outlined" title="Effacer la signature">
-                    ink_eraser
-                  </span>
+                <div class="flex gap-4 mt-8">
+                  <button id="save" class="btn btn-primary btn-outline hover:shadow-xl hover:!text-white btn-lg">Enregistrer</button>
+                  <div id="clear" class="btn btn-lg btn-outline">
+                    <span class="material-symbols-outlined" title="Effacer la signature">
+                      ink_eraser
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        <% else %>
-          Vous avez signé à 
-          <%= @presence.assemblee.presences.find_by(user_id: @presence.user).created_at.strftime("%H:%M") %> 
-          et nous vous en remercions.
-          <br><br>
-          Vous pouvez maintenant fermer cette page.
-        <% end %>
+          <% else %>
+            Vous avez signé à 
+            <%= @presence.assemblee.presences.find_by(user_id: @presence.user).created_at.strftime("%H:%M") %> 
+            et nous vous en remercions.
+            <br><br>
+            Vous pouvez maintenant fermer cette page.
+          <% end %>
+        </div>
       </div>
-    </div>
-  <% elsif @presence.assemblee.début > DateTime.now %>
-    <p>La session n'a pas encore commencé. Elle commencera le <%= l @presence.assemblee.début.to_date %> à <%= @presence.assemblee.début.strftime("%H:%M") %></p>
-  <% else %>
-    <p>Cette session est maintenant terminée.</p>
+    <% elsif @presence.assemblee.début > DateTime.now %>
+      <p>La session n'a pas encore commencé. Elle commencera le <%= l @presence.assemblee.début.to_date %> à <%= @presence.assemblee.début.strftime("%H:%M") %></p>
+    <% else %>
+      <p>Cette session est maintenant terminée.</p>
+    <% end %>
   <% end %>
-<% end %>
+</div>
 
 <script>
   var signaturePad = new SignaturePad(document.getElementById('signature-pad'));
