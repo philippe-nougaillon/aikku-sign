@@ -32,7 +32,7 @@
       <% json = JSON.parse(line)['prediction'] %>
       <div>
         <% json['displayNames'].length.times do |i| %>
-          <div class="mb-4 <%= 'font-black text-success' if i.zero? && json['confidences'][i] > 0.8 %>">
+          <div class="mb-4 <%= 'font-black' if i.zero? && json['confidences'][i] > 0.85 %>">
             <p><%= json['displayNames'][i] %></p>
             <p><%= "*" * (json['confidences'][i] * 100) %></p>
             <p><%= (json['confidences'][i] * 100).round(2) %>%</p>
