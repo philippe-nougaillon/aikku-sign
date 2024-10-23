@@ -18,24 +18,26 @@
 <% @downloaded.read.split(' ').each do |line| %>
   <% presence = Presence.find_by(id: line.split("signature_").last.split("_assemblee").first)%>
   <div class="flex gap-8 mb-8">
-    <% if presence %>
-      <div>
-        <p class="text-2xl font-bold text-primary"><%= presence.user.nom_prénom %></p>
-        <p>
-          <%= presence.assemblee.nom.humanize %>
-          / <%= l(presence.assemblee.début, format: :long) %>
-        </p>
-        <%= image_tag presence.signature %>
-      </div>
-    <% end %>
-    <div>
+    <div class="w-1/3">
+      <% if presence %>
+          <p class="text-2xl font-bold text-primary"><%= presence.user.nom_prénom %></p>
+          <p>
+            <%= presence.assemblee.nom.humanize %>
+            / <%= l(presence.assemblee.début, format: :long) %>
+          </p>
+          <%= image_tag presence.signature %>
+      <% end %>
+    </div>
+    <div class="w-2/3">
       <% json = JSON.parse(line)['prediction'] %>
       <div>
         <% json['displayNames'].length.times do |i| %>
-          <div class="mb-4 <%= 'font-black' if i.zero? && json['confidences'][i] > 0.85 %>">
+          <div class="mb-4 <%# 'font-black' if i.zero? && json['confidences'][i] > 0.85 %>">
             <p><%= json['displayNames'][i] %></p>
-            <p><%= "*" * (json['confidences'][i] * 100) %></p>
-            <p><%= (json['confidences'][i] * 100).round(2) %>%</p>
+            <small>
+              <%= "█" * (json['confidences'][i] * 100) %>
+              <%= (json['confidences'][i] * 100).round(0) %>%
+            </small>
           </div>
         <% end %>
       </div>
