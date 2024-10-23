@@ -4,8 +4,8 @@
   </h1>
   
   <div>
-    <%= link_to "Création dataset", admin_create_dataset_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
-    <%= link_to "Lancer détection", admin_launch_fake_signature_detector_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
+    <%= link_to "Créer un dataset", admin_create_dataset_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
+    <%= link_to "Lancer la détection", admin_launch_fake_signature_detector_path, class:'btn btn-primary btn-outline btn-lg hover:shadow-xl hover:!text-white' %>
   </div>
 </div>
 
@@ -32,8 +32,12 @@
             </span>
           </td>
           <td><%= l Time.at(response.create_time.seconds) %></td>
-          <td><%= ((response.end_time.seconds - response.create_time.seconds)/ 1.minutes) if response.end_time%> minutes</td>
-          <td><%= response.completion_stats.successful_count %> réussies / <%= response.completion_stats.failed_count %> échouées</td>
+          <% if response.end_time %>
+            <td><%= "#{((response.end_time.seconds - response.create_time.seconds)/ 1.minutes)} minutes" %></td>
+            <td><%= response.completion_stats.successful_count %> réussies / <%= response.completion_stats.failed_count %> échouées</td>
+          <% else %>
+            <td colspan=2></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
