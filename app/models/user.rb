@@ -61,7 +61,7 @@ class User < ApplicationRecord
         user.nom = auth.info.last_name   # assuming the user model has a name
         user.prénom = auth.info.first_name   # assuming the user model has a name
         user.organisation = Organisation.create(nom: "Mon_organisation")
-        user.admin = true
+        # user.admin = true
         # user.tag_list.add("Gestionnaire")
 
         # If you are using confirmable and the provider(s) you use validate emails, 
