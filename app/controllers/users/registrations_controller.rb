@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
     # Associer l'utilisateur à une organisation
     @user.organisation = Organisation.create(nom: "Mon_organisation")
-    @user.admin = true
+    # @user.admin = true
     @user.dispatch_email_to_nom_prénom
     @user.save
     unless Rails.env.development?
