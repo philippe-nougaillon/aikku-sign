@@ -6,11 +6,11 @@
       <p class="opacity-50 mt-4">
         AIKKU SAS
         <br>  
-        Tour CB21 
+        Tour CB21/LA DÉFENSE
         <br>
         16 PLACE DE L'IRIS
         <br>
-        92400 PARIS LA DÉFENSE
+        92400 COURBEVOIE
         <br>
         FRANCE
         <br><br>
@@ -24,16 +24,20 @@
 <footer class="footer px-10 py-6 border-t bg-base-content text-neutral-content border-base-300">
   <span class="inline">
     Copyright © 2024 AIKKU SAS - Tous droits réservés -
-    <%= link_to "Mentions Légales", admin_mentions_legales_path, class:'hover:underline' %>
+    <div>
+      <%= link_to "Mentions Légales", admin_mentions_legales_path, class:'hover:underline' %>
+      -
+      <%= link_to "Nous contacter", admin_contact_path, class:'hover:underline' %>
+    </div>
   </span>
   <div class="md:place-self-center md:justify-self-end">
     <div class="grid grid-flow-col gap-4">
-      <%= link_to admin_contact_path do %>
+      <%= link_to admin_contact_path, class:'hover:text-primary' do %>
         <span class="material-symbols-outlined">
           mail
         </span>
       <% end %>
-      <%= link_to "https://www.linkedin.com/in/aikku-sas", target: "_blank" do %>
+      <%= link_to "https://www.linkedin.com/in/aikku-sas", target: "_blank", class:'hover:text-primary' do %>
         <span class="material-symbols-outlined">
           public
         </span>
