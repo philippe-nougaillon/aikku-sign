@@ -9,4 +9,8 @@ class EmailSubscription
     AssembleeMailer.nouvelle_assemblee(event[:payload][:assemblee_id]).deliver_later
   end
 
+  def on_assemblee_completed(event)
+    AssembleeMailer.assemblee_completed(event[:payload][:assemblee_id]).deliver_later
+  end
+
 end

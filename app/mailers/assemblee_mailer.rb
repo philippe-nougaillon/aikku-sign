@@ -24,4 +24,9 @@ class AssembleeMailer < ApplicationMailer
     mail(to: "philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com", subject: "Nouvelle session : '#{@assemblee.nom}'")
   end
   
+  def assemblee_completed(assemblee_id)
+    @assemblee = Assemblee.find(assemblee_id)
+    mail(to: @assemblee.user.email, subject: "Tout le monde a signé pour la session : '#{@assemblee.nom}'")
+  end
+
 end
