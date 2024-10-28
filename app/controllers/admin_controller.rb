@@ -33,7 +33,7 @@ class AdminController < ApplicationController
         if @presence.assemblee.users_not_signed.count.zero?
           @presence.assemblee.update(workflow_state: 'complet')
           unless Rails.env.development?
-            Events.instance.publish('assemblee.completed', payload: {assemblee_id: @assemblee.id})
+            Events.instance.publish('assemblee.completed', payload: {assemblee_id: @presence.assemblee.id})
           end
         end
 
