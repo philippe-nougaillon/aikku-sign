@@ -21,7 +21,12 @@
         </span>
       <% elsif ((assemblee.début + assemblee.durée.to_f.hours) - Time.current).positive? %>
         <span class="text-error">
-          (fin de session dans <%= time_ago_in_words assemblee.fin %>)
+          fin de session dans 
+          <time 
+            data-controller="timeago" 
+            data-timeago-datetime-value="<%= assemblee.fin %>" 
+            data-timeago-refresh-interval-value="60000">
+          </time>.
         </span>
       <% end %>
     </p>
