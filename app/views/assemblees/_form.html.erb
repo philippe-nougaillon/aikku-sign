@@ -41,46 +41,49 @@
     </div>
   </div >
 
-  <div class="flex gap-4">
-    <div class="flex-1 mt-8" title="Répéter cette session ?">
-      <%= form.check_box :repeter %>
+  <div data-controller="toggle-repeat">
+    <div class="mt-4" title="Répéter cette session ?">
+      <span data-action="change->toggle-repeat#change">
+        <%= form.check_box :repeter, data: { 'toggle-repeat-target': 'checkbox' } %>
+      </span>
       <%= form.label :repeter, "Répéter cette session ?" %>
     </div>
 
-    <div class="flex-1 mt-4">
-      <%= form.label :fin_repeter, "Jusqu'au", style: "display: block" %>
-      <%= form.datetime_field :fin_repeter, class: 'input input-bordered input-sm w-full', required: true %>
-    </div>
-  </div>
-
-  <div class="flex">
-    <div class="p-2">
-      <%= form.check_box :repeter_lun %>
-      <%= form.label :repeter_lun, "Lundi" %>
-    </div>
-    <div class="p-2">
-      <%= form.check_box :repeter_mar %>
-      <%= form.label :repeter_mar, "Mardi" %>
-    </div>
-    <div class="p-2">
-      <%= form.check_box :repeter_mer %>
-      <%= form.label :repeter_mer, "Mer." %>
-    </div>
-    <div class="p-2">
-      <%= form.check_box :repeter_jeu %>
-      <%= form.label :repeter_jeu, "Jeudi" %>
-    </div>
-    <div class="p-2">
-      <%= form.check_box :repeter_ven %>
-      <%= form.label :repeter_ven, "Ven." %>
-    </div>
-    <div class="p-2">
-      <%= form.check_box :repeter_sam %>
-      <%= form.label :repeter_sam, "Samedi" %>
-    </div>
-    <div class="p-2">
-      <%= form.check_box :repeter_dim %>
-      <%= form.label :repeter_dim, "Dim." %>
+    <div data-toggle-repeat-target="options" class="shadow p-2">
+      <div class="flex">
+        <div class="p-2">
+          <%= form.check_box :repeter_lun %>
+          <%= form.label :repeter_lun, "Lundi" %>
+        </div>
+        <div class="p-2">
+          <%= form.check_box :repeter_mar %>
+          <%= form.label :repeter_mar, "Mardi" %>
+        </div>
+        <div class="p-2">
+          <%= form.check_box :repeter_mer %>
+          <%= form.label :repeter_mer, "Mer." %>
+        </div>
+        <div class="p-2">
+          <%= form.check_box :repeter_jeu %>
+          <%= form.label :repeter_jeu, "Jeudi" %>
+        </div>
+        <div class="p-2">
+          <%= form.check_box :repeter_ven %>
+          <%= form.label :repeter_ven, "Ven." %>
+        </div>
+        <div class="p-2">
+          <%= form.check_box :repeter_sam %>
+          <%= form.label :repeter_sam, "Samedi" %>
+        </div>
+        <div class="p-2">
+          <%= form.check_box :repeter_dim %>
+          <%= form.label :repeter_dim, "Dim." %>
+        </div>
+      </div>
+     <div class="ml-2">
+        <%= form.label :fin_repeter, "Jusqu'au : " %>
+        <%= form.datetime_field :fin_repeter, class: 'input input-bordered input-sm ml-2' %>
+      </div>
     </div>
   </div>
 
