@@ -1,7 +1,6 @@
 <li>
   <p class="break-all">
     <%= current_user.email %>
-    (<%= current_user.organisation.nom %>)
 
     <% if current_user.organisation.premium %>
       <%= link_to admin_premium_path do %>
