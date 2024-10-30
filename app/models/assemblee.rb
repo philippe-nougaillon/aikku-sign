@@ -103,6 +103,11 @@ class Assemblee < ApplicationRecord
     return ids.flatten.uniq
   end
 
+  # Remplace la date de début sans changer l'heure (pour les répétitions)
+  def change_date_début
+    self.début = DateTime.now.strftime("%Y-%m-%d") + ' ' + self.début.strftime('%H:%M:%S')
+  end
+
   private
 
   def update_fin

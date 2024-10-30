@@ -25,4 +25,23 @@ namespace :assemblee do
     end
   end
 
+  desc "Repeter les sessions"
+  task :repeat => :environment do
+    Assemblee.where(repeter: true).where("assemblees.fin_repeter > ?", DateTime.now).each do |assemblee|
+      if (DateTime.now.wday == 1 && assemblee.repeter_lun) || 
+         (DateTime.now.wday == 2 && assemblee.repeter_mar) || 
+         (DateTime.now.wday == 3 && assemblee.repeter_mer) ||
+         (DateTime.now.wday == 4 && assemblee.repeter_jeu) ||
+         (DateTime.now.wday == 5 && assemblee.repeter_ven) || 
+         (DateTime.now.wday == 6 && assemblee.repeter_sam) || 
+         (DateTime.now.wday == 7 && assemblee.repeter_dim)
+        new_session = assemblee.dup
+        new_session.change_date_début()
+        new_session.workflow_state = 'attente'
+        #puts new_session.inspect
+        new_session.save
+      end
+    end
+  end
+
 end

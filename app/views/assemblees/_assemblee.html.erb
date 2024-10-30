@@ -26,6 +26,24 @@
         Gestionnaire : <%= assemblee.user.nom_prénom %> (<%= assemblee.user.email %>)
       </p>
 
+      <% if assemblee.repeter? %>
+        <p class="mt-4">
+          Répéter :  
+          <%= 'L' if assemblee.repeter_lun? %>
+          <%= 'Ma' if assemblee.repeter_mar? %>
+          <%= 'Me' if assemblee.repeter_mer? %>
+          <%= 'J' if assemblee.repeter_jeu? %>
+          <%= 'V' if assemblee.repeter_ven? %>
+          <%= 'S' if assemblee.repeter_sam? %>
+          <%= 'D' if assemblee.repeter_dim? %>
+          <% if assemblee.fin_repeter %>
+            | Jusqu'au 
+            <%= l assemblee.fin_repeter %>
+            (encore <%= (assemblee.fin_repeter.to_date - Date.today).to_i %> fois)
+          <% end %>
+        </p>
+      <% end %>
+
       <p class="my-4">
         Statut : 
         <span class="text-nowrap font-bold <%= assemblee.style %>">
