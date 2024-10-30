@@ -11,14 +11,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
-    # Associer l'utilisateur à une organisation
-    @user.organisation = Organisation.create(nom: "Mon_organisation")
-    # @user.admin = true
-    @user.dispatch_email_to_nom_prénom
-    @user.save
-    unless Rails.env.development?
-      Events.instance.publish('organisation.created', payload: {user_id: @user.id})
+    if verify_recaptcha || Rails.env.development?
+      super
+      # Associer l'utilisateur à une organisation
+      @user.organisation = Organisation.create(nom: "Mon_organisation")
+      # @user.admin = true
+      @user.dispatch_email_to_nom_prénom
+      @user.save
+      unless Rails.env.development?
+        Events.instance.publish('organisation.created', payload: {user_id: @user.id})
+      end
+    else 
+      redirect_to new_user_registration_path(email: params[:user][:email]), alert: "Problème avec reCAPTCHA"
     end
   end
 

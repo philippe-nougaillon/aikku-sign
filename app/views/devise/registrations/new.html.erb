@@ -9,7 +9,7 @@
 
       <div class="field my-4">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email", class:'input input-sm input-bordered w-full', required: true %>
+        <%= f.email_field :email, value: params[:email], autocomplete: "email", class:'input input-sm input-bordered w-full', required: true %>
       </div>
 
       <div class="field">
@@ -24,6 +24,8 @@
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class:'input input-sm input-bordered w-full', required: true %>
       </div>
+
+      <%= recaptcha_tags unless Rails.env.development? %>
 
       <div class="actions">
         <%= f.submit "S'inscrire", class: 'btn btn-outline btn-primary hover:!text-white w-full mt-4 mb-8', data_turbo: false %>
