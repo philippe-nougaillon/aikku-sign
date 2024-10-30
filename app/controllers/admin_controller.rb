@@ -71,6 +71,9 @@ class AdminController < ApplicationController
         # Mise à jour du statut complet
         if @presence.assemblee.users_not_signed.count.zero?
           @presence.assemblee.update(workflow_state: 'complet')
+          unless Rails.env.development?
+            Events.instance.publish('assemblee.completed', payload: {assemblee_id: @presence.assemblee.id})
+          end
         end
 
         format.html { redirect_to admin_signature_individuelle_url(assemblee_id: params[:assemblee_id], user_id: params[:user_id]), notice: "Votre émargement a été créé avec succès." }
