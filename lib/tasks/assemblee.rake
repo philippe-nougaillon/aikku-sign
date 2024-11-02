@@ -38,6 +38,7 @@ namespace :assemblee do
         new_session = assemblee.dup
         new_session.change_date_début()
         new_session.workflow_state = 'attente'
+        new_session.tags = assemblee.tags
         #puts new_session.inspect
         new_session.save
       end
