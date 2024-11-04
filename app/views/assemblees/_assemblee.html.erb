@@ -20,7 +20,7 @@
 
       <p class="mt-4">
         Groupes : <% assemblee.tags.each do |tag| %>
-          <span class="badge"><%= link_to tag.name.humanize, users_path(tags: [tag.name]), class: "hover:underline" %></span>
+          <span class="badge badge-lg font-bold shadow"><%= link_to tag.name.humanize, users_path(tags: [tag.name]), class: "hover:underline" %></span>
         <% end %>
         |         
         Gestionnaire : <%= assemblee.user.nom_prénom %> (<%= assemblee.user.email %>)
@@ -46,7 +46,7 @@
 
       <p class="my-4">
         Statut : 
-        <span class="text-nowrap font-bold <%= assemblee.style %>">
+        <span class="text-nowrap font-bold shadow <%= assemblee.style %>">
           <%= assemblee.workflow_state.humanize %>
         </span>
         |
