@@ -35,12 +35,16 @@ namespace :assemblee do
          (DateTime.now.wday == 5 && assemblee.repeter_ven) || 
          (DateTime.now.wday == 6 && assemblee.repeter_sam) || 
          (DateTime.now.wday == 7 && assemblee.repeter_dim)
+
+        # Dupliquer la session à répéter
         new_session = assemblee.dup
         new_session.change_date_début()
         new_session.workflow_state = 'attente'
         new_session.tags = assemblee.tags
-        #puts new_session.inspect
         new_session.save
+        # stopper la répétition de la session précédente !
+        assemblee.repeter = false
+        assemblee.save
       end
     end
   end
