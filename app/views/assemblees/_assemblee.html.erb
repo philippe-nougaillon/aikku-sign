@@ -29,7 +29,7 @@
           <div class="flex-initial w-20">
             Répéter :  
           </div>
-          <div class="flex-none w-24">
+          <div class="flex-grow w-28">
             <%= 'L' if assemblee.repeter_lun? %>
             <%= 'Ma' if assemblee.repeter_mar? %>
             <%= 'Me' if assemblee.repeter_mer? %>
@@ -52,7 +52,7 @@
         <div class="flex-initial w-20">
             Groupes : 
         </div>
-        <div class="flex-none w-24">
+        <div class="flex-grow w-28">
             <% assemblee.tags.each do |tag| %>
               <span class="badge badge-lg font-bold shadow"><%= link_to tag.name.humanize, users_path(tags: [tag.name]), class: "hover:underline" %></span>
             <% end %>
@@ -67,7 +67,7 @@
         <div class="flex-initial w-20">
           Statut : 
         </div>
-        <div class="flex-none w-24">
+        <div class="flex-grow w-28">
           <span class="text-nowrap font-bold shadow <%= assemblee.style %>">
             <%= assemblee.workflow_state.humanize %>
           </span>
