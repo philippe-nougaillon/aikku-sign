@@ -2,11 +2,16 @@
   <div class="flex flex-wrap gap-8">
     <div>
       <p class="text-3xl font-bold text-primary hover:underline">
+        <% if assemblee.repeter? %>
+          <span class="material-symbols-outlined">
+              event_repeat
+            </span>
+        <% end %>
         <%= assemblee.nom.humanize %>
       </p>
       
       <p class="font-bold">
-        <%= assemblee.horaires_long %>
+        <%= assemblee.horaires_long.humanize %>
         <% if assemblee.début > DateTime.now %>
           <span class="text-success italic">
             (débute dans <%= time_ago_in_words assemblee.début %>)
@@ -18,42 +23,61 @@
         <% end %>
       </p>
 
-      <p class="mt-4">
-        Groupes : <% assemblee.tags.each do |tag| %>
-          <span class="badge badge-lg font-bold shadow"><%= link_to tag.name.humanize, users_path(tags: [tag.name]), class: "hover:underline" %></span>
-        <% end %>
-        |         
-        Gestionnaire : <%= assemblee.user.nom_prénom %> (<%= assemblee.user.email %>)
-      </p>
 
       <% if assemblee.repeter? %>
-        <p class="mt-4">
-          Répéter :  
-          <%= 'L' if assemblee.repeter_lun? %>
-          <%= 'Ma' if assemblee.repeter_mar? %>
-          <%= 'Me' if assemblee.repeter_mer? %>
-          <%= 'J' if assemblee.repeter_jeu? %>
-          <%= 'V' if assemblee.repeter_ven? %>
-          <%= 'S' if assemblee.repeter_sam? %>
-          <%= 'D' if assemblee.repeter_dim? %>
-          <% if assemblee.fin_repeter %>
-            | Jusqu'au 
-            <%= l assemblee.fin_repeter %>
-            (encore <%= (assemblee.fin_repeter.to_date - Date.today).to_i %> fois)
-          <% end %>
-        </p>
+        <div class="flex mt-4">
+          <div class="flex-initial w-20">
+            Répéter :  
+          </div>
+          <div class="flex-none w-24">
+            <%= 'L' if assemblee.repeter_lun? %>
+            <%= 'Ma' if assemblee.repeter_mar? %>
+            <%= 'Me' if assemblee.repeter_mer? %>
+            <%= 'J' if assemblee.repeter_jeu? %>
+            <%= 'V' if assemblee.repeter_ven? %>
+            <%= 'S' if assemblee.repeter_sam? %>
+            <%= 'D' if assemblee.repeter_dim? %>
+          </div>
+          <div>
+            <% if assemblee.fin_repeter %>
+              Jusqu'au 
+              <%= l assemblee.fin_repeter %>
+              (encore <%= (assemblee.fin_repeter.to_date - Date.today).to_i %> fois)
+            <% end %>
+          </div>
+        </div>
       <% end %>
 
-      <p class="my-4">
-        Statut : 
-        <span class="text-nowrap font-bold shadow <%= assemblee.style %>">
-          <%= assemblee.workflow_state.humanize %>
-        </span>
-        |
-        <%= link_to "#{assemblee.presences.count} émargement(s)", presences_path(assemblee_id: assemblee.id), class: 'text-primary hover:underline' %>
-        /
-        <%= link_to "#{assemblee.related_users.count} participant(s)", users_path(assemblee_id: assemblee.id), class: 'text-primary hover:underline' %>
-      </p>
+      <div class="flex mt-4">
+        <div class="flex-initial w-20">
+            Groupes : 
+        </div>
+        <div class="flex-none w-24">
+            <% assemblee.tags.each do |tag| %>
+              <span class="badge badge-lg font-bold shadow"><%= link_to tag.name.humanize, users_path(tags: [tag.name]), class: "hover:underline" %></span>
+            <% end %>
+        </div>
+        <div>
+          Gestionnaire : 
+          <%= assemblee.user.nom_prénom %> (<%= assemblee.user.email %>)
+        </div>
+      </div>
+
+      <div class="flex my-4">
+        <div class="flex-initial w-20">
+          Statut : 
+        </div>
+        <div class="flex-none w-24">
+          <span class="text-nowrap font-bold shadow <%= assemblee.style %>">
+            <%= assemblee.workflow_state.humanize %>
+          </span>
+        </div>
+        <div>
+          <%= link_to "#{assemblee.presences.count} émargement(s)", presences_path(assemblee_id: assemblee.id), class: 'text-primary hover:underline' %>
+          /
+          <%= link_to "#{assemblee.related_users.count} participant(s)", users_path(assemblee_id: assemblee.id), class: 'text-primary hover:underline' %>
+        </div>
+      </div>
 
       <div class="flex flex-wrap gap-2 mt-6">
         <%= link_to "Dupliquer", new_assemblee_path(assemblee_id: assemblee), class:'btn btn-success btn-outline hover:!text-white btn-sm' %>
