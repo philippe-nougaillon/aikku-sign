@@ -27,7 +27,9 @@ namespace :assemblee do
 
   desc "Repeter les sessions"
   task :repeat => :environment do
-    Assemblee.where(repeter: true).where("assemblees.fin_repeter > ?", DateTime.now).each do |assemblee|
+    Assemblee.where(repeter: true)
+             .where("assemblees.fin_repeter > ?", DateTime.now)
+             .each do |assemblee|
       if (DateTime.now.wday == 1 && assemblee.repeter_lun) || 
          (DateTime.now.wday == 2 && assemblee.repeter_mar) || 
          (DateTime.now.wday == 3 && assemblee.repeter_mer) ||
