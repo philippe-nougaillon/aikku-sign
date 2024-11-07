@@ -5,6 +5,11 @@
     </span>
 
     <p>
+      <% if assemblee.repeter? %>
+        <span class="material-symbols-outlined" style="font-size: 16px;">
+          event_repeat
+        </span>
+      <% end %>
       <%= assemblee.horaires_medium.humanize %>
     </p>
 
