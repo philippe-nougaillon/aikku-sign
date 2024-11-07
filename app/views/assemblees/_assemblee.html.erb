@@ -3,11 +3,11 @@
     <div>
       <p class="text-3xl font-bold text-primary hover:underline">
         <% if assemblee.repeter? %>
-          <span class="material-symbols-outlined">
-              event_repeat
-            </span>
+          <span class="text-black material-symbols-outlined">
+            event_repeat
+          </span>
         <% end %>
-        <%= assemblee.nom.humanize %>
+        <%= link_to assemblee.nom.humanize, edit_assemblee_path(assemblee) %>
       </p>
       
       <p class="font-bold">
@@ -22,7 +22,6 @@
           </span>
         <% end %>
       </p>
-
 
       <% if assemblee.repeter? %>
         <div class="flex mt-4">
@@ -59,7 +58,7 @@
         </div>
         <div>
           Gestionnaire : 
-          <%= assemblee.user.nom_prénom %> (<%= assemblee.user.email %>)
+          <%= link_to assemblee.user.nom_prénom, assemblee.user, class: "text-primary hover:underline" %>
         </div>
       </div>
 

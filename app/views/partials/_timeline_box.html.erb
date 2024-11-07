@@ -1,20 +1,20 @@
-<div class="timeline-<%= start ? 'start' : 'end' %> timeline-box hover:underline">
+<div class="timeline-<%= start ? 'start' : 'end' %> timeline-box">
   <%= link_to assemblee_path(assemblee) do %>
     <span class="font-bold text-xl text-primary">
       <%= assemblee.nom.humanize %>
     </span>
 
     <p>
-      <%= assemblee.horaires_medium %>
+      <%= assemblee.horaires_medium.humanize %>
     </p>
 
-    <p>
+    <p class="mt-4">
       <% assemblee.tags.each do |tag| %>
         <span class="font-bold <%= assemblee.style %>"><%= assemblee.workflow_state.humanize %></span>
       <% end %>
     </p>
 
-    <p class="italic text-sm mt-2">
+    <p class="italic text-xs mt-2">
       <% if assemblee.début > DateTime.now %>
         <span class="text-success">
           (débute dans <%= time_ago_in_words assemblee.début %>)
