@@ -28,14 +28,14 @@
           <div class="flex-initial w-20">
             Répéter :  
           </div>
-          <div class="flex-grow w-28">
-            <%= 'L' if assemblee.repeter_lun? %>
-            <%= 'Ma' if assemblee.repeter_mar? %>
-            <%= 'Me' if assemblee.repeter_mer? %>
-            <%= 'J' if assemblee.repeter_jeu? %>
-            <%= 'V' if assemblee.repeter_ven? %>
-            <%= 'S' if assemblee.repeter_sam? %>
-            <%= 'D' if assemblee.repeter_dim? %>
+          <div class="flex-grow w-64">
+            <span class="badge shadow"><%= assemblee.repeter_lun? ? 'L' : '_' %></span>
+            <span class="badge shadow"><%= assemblee.repeter_mar? ? 'Ma' : '_' %></span>
+            <span class="badge shadow"><%= assemblee.repeter_mer? ? 'Me' : '_' %></span>
+            <span class="badge shadow"><%= assemblee.repeter_jeu? ? 'J' : '_' %></span>
+            <span class="badge shadow"><%= assemblee.repeter_ven? ? 'V' : '_' %></span>
+            <span class="badge shadow"><%= assemblee.repeter_sam? ? 'S' : '_' %></span>
+            <span class="badge shadow"><%= assemblee.repeter_dim? ? 'D' : '_' %></span>
           </div>
           <div>
             <% if assemblee.fin_repeter %>
