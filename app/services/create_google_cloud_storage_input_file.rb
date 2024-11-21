@@ -12,7 +12,7 @@ class CreateGoogleCloudStorageInputFile < ApplicationService
 
     content_file = []
 
-    @organisation.presences.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).each do |presence|
+    @organisation.presences.first(120).each do |presence|
       h = {}
 
       file = "signature_#{presence.id}_assemblee_#{presence.assemblee_id}_#{DateTime.now}.png"
