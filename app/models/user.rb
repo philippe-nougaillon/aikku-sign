@@ -45,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def super_admin?
-    %w[philippe.nougaillon@gmail.com pierreemmanuel.dacquet@gmail.com].include?(self.email)
+    %w[philippe.nougaillon@aikku.eu pierre-emmanuel.dacquet@aikku.eu sebastien.pourchaire@aikku.eu].include?(self.email)
   end
 
   def self.from_omniauth(auth)
