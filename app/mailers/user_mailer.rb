@@ -3,7 +3,7 @@ class UserMailer < ApplicationMailer
     @user = user
 
     mail(to: @user.email, 
-        bcc: "philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com",
+        bcc: "philippe.nougaillon@aikku.eu, pierre-emmanuel.dacquet@aikku.eu, sebastien.pourchaire@aikku.eu",
         subject: "[Aikku SIGN] Bienvenue !'")
 
   end

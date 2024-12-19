@@ -20,9 +20,9 @@ ExceptionNotification.configure do |config|
 
   # Email notifier sends notifications by email.
   config.add_notifier :email, {
-    email_prefix: '[Aikku Sign Error] ',
-    sender_address: "Aikku Sign Notifier <emargements@philnoug.com>",
-    exception_recipients: %w{philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com}
+    email_prefix: '[Aikku SIGN Error] ',
+    sender_address: "Aikku SIGN Notifier <emargements@philnoug.com>",
+    exception_recipients: %w{philippe.nougaillon@aikku.eu, pierre-emmanuel.dacquet@aikku.eu}
   }
 
   # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.

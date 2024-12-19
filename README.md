@@ -74,7 +74,7 @@ $ sudo docker-compose run --rm web bin/rails db:setup
 ## Créer le premier utilisateur (Administrateur)
 $ sudo docker-compose run --rm web bin/rails c
 
-> User.create(email: 'philippe.nougaillon@gmail.com', admin: true, password: '1234567890', confirmed_at: DateTime.now, organisation_id: Organisation.create(nom: 'CESER').
+> User.create(email: 'philippe.nougaillon@aikku.eu', admin: true, password: '1234567890', confirmed_at: DateTime.now, organisation_id: Organisation.create(nom: 'CESER').
 id)
 
 > exit
